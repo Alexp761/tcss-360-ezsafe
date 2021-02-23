@@ -1,5 +1,9 @@
 package com.threesixty.ezsafe.Hazard;
 
-public class CarbonMonoxideDetector {
+import com.threesixty.ezsafe.Device;
+
+public class CarbonMonoxideDetector extends Device {
+
+
 
 }
