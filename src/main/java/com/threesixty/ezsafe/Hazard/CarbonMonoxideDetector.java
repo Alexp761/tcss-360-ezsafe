@@ -54,4 +54,12 @@ public void changeSmokeLevel(final double particle){
 
 }
 
+public void changeParticleInAir(final double particle){
+
+    this.particleInAir = particle;
+
+   
+
+}
+
 }
