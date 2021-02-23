@@ -4,7 +4,7 @@ import com.threesixty.ezsafe.Device;
 
 public class SmokeDetector extends Device {
 
-
+   //Actual LOW and NORMAL values are not esimated yet
     private static double LOW = 1.0;
     private static double NORMAL = 2.0;
     private String smokeLevel;
@@ -33,7 +33,7 @@ public class SmokeDetector extends Device {
     
     }
     
-    public void changeSmokeLevel(final double particle){
+    private void changeSmokeLevel(final double particle){
     
         if(partcile <= LOW){
             this.smokeLevel = "Low";
@@ -56,6 +56,7 @@ public class SmokeDetector extends Device {
     public void changeParticleInAir(final double particle){
     
         this.particleInAir = particle;
+        changeSmokeLevel(particle);
     
        
     
