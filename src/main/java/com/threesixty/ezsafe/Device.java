@@ -5,14 +5,14 @@ public abstract class Device {
     private boolean deviceState;
 
     public String getDeviceID() {
-        return deviceID;
+        return this.deviceID;
     }
 
     public boolean isDeviceState() {
-        return deviceState;
+        return this.deviceState;
     }
 
-    public void setDeviceState(boolean deviceState) {
+    public void setDeviceState(final boolean deviceState) {
         this.deviceState = deviceState;
     }
 
