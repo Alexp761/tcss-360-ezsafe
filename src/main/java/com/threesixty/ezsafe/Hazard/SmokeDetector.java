@@ -12,7 +12,7 @@ public class SmokeDetector extends Device {
     
     
     
-    public CarbonMonoxideDetector(final String smokeLevel,final double particle){
+    public SmokeDetector(final String smokeLevel,final double particle){
     
         this.smokeLevel = smokeLevel;
         this.particleInAir=particle;
