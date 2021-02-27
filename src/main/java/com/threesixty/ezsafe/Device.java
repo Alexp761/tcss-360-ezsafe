@@ -1,8 +1,8 @@
 package com.threesixty.ezsafe;
 
 public abstract class Device {
-    private String deviceID;
-    private boolean deviceState;
+    protected String deviceID;
+    protected boolean deviceState;
 
     public String getDeviceID() {
         return this.deviceID;

@@ -12,8 +12,9 @@ public class SmokeDetector extends Device {
     
     
     
-    public SmokeDetector(final String smokeLevel,final double particle){
-    
+    public SmokeDetector(final String ID,final Boolean state,final String smokeLevel,final double particle){
+        super.deviceID = ID;
+        super.deviceState = state;
         this.smokeLevel = smokeLevel;
         this.particleInAir=particle;
     
