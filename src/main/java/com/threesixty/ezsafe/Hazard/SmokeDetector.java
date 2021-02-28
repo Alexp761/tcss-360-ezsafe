@@ -5,8 +5,11 @@ import com.threesixty.ezsafe.Device;
 public class SmokeDetector extends Device {
 
    //Actual LOW and NORMAL values are not esimated yet
-    private static double LOW = 1.0;
-    private static double NORMAL = 2.0;
+    private static double LOWSMOKE = 1.0;
+    private static double NORMALSMOKE = 2.0;
+    private static final String DANGER= "Danger";
+    private static final String NORMAL = "Normal";
+    private static final String LOW = "Low";
     private String smokeLevel;
     private double particleInAir;
     
@@ -21,13 +24,13 @@ public class SmokeDetector extends Device {
     }
     
     
-    public getSmokeLevel(){
+    public String getSmokeLevel(){
     
     return this.smokeLevel;
     
     }
     
-    public getParticle(){
+    public double getParticle(){
     
         return this.particleInAir;
     
@@ -36,17 +39,17 @@ public class SmokeDetector extends Device {
     
     private void changeSmokeLevel(final double particle){
     
-        if(partcile <= LOW){
-            this.smokeLevel = "Low";
+        if(particle <= LOWSMOKE){
+            this.smokeLevel = LOW;
     
         }
-        else if(partcile <= NORMAL ){
-             this.smokeLevel = "Normal";
+        else if(particle<= NORMALSMOKE ){
+             this.smokeLevel = NORMAL;
     
         }
       
         else{
-             this.smokeLevel = "Danger";
+             this.smokeLevel = DANGER;
     
         }
     

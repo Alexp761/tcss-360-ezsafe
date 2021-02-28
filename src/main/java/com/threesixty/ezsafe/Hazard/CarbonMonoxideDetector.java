@@ -1,14 +1,16 @@
 package com.threesixty.ezsafe.Hazard;
 
-import java.text.Normalizer;
 
 import com.threesixty.ezsafe.Device;
 
 public class CarbonMonoxideDetector extends Device {
 
 //Actual LOW and NORMAL values are not esimated yet
-private static final double LOW = 1.0;
-private static final double NORMAL = 2.0;
+private static final double LOWCO = 1.0;
+private static final double NORMALCO = 2.0;
+private static final String DANGER= "Danger";
+private static final String NORMAL = "Normal";
+private static final String LOW = "Low";
 private String CMLevel;
 private double CMParticle;
 
@@ -20,38 +22,38 @@ public CarbonMonoxideDetector(final String ID,final Boolean state,final String c
 
 }
 
-public getCMLevel(){
+public String getCMLevel(){
   
      return this.CMLevel;
 
 }
 
-public getCMParticle(){
+public double getCMParticle(){
  
       return this.CMParticle;   
     
 }
 
-private setCMLevel(final double particle){
+private void setCMLevel(final double particle){
 
-if(particle <= LOW){
-   this.CMLevel = "Low";
+if(particle <= LOWCO){
+   this.CMLevel = LOW;
 
 }
-else if (partcile <= NORMAL){
+else if (particle<= NORMALCO){
 
-  this.CMLevel = "Normal";
+  this.CMLevel = NORMAL;
 
 }
 
 else{
-  this.CMLevel = "Danger";
+  this.CMLevel = DANGER;
 
 }
 
 }
 
-public changeCMPartile(final double particle ){
+public void changeCMPartile(final double particle ){
 
     this.CMParticle = particle;
     setCMLevel(particle);
