@@ -19,7 +19,9 @@ public class TemperatureSensor extends Device {
      private  float Temp;
      private String templLevel;
      
-     public TemperatureSensor(String ID, Boolean state, float Temp, String tempLevel)
+     public TemperatureSensor(String ID, Boolean state, float Temp, String tempLevel){
+	     
+	     
 }
 public  float getTempLevel() {
 	return this.Temp;
