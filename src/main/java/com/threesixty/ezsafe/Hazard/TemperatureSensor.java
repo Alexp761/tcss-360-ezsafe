@@ -9,18 +9,22 @@ package com.threesixty.ezsafe.Hazard;
 
 // 
 public class TemperatureSensor extends Device {
-	private float normalTemp=66.0; 
-	private float warmTemp=78.0;
-	private float coldTemp=65.0;
+	private static final float normalTemp=66.0; 
+	private static final float warmTemp=78.0;
+	private static final float coldTemp=65.0;
 	
-     private String confortable= "confortable ";
-     private String warm = "warm";
-     private String cold = "cold";
+     private static final String confortable= "confortable ";
+     private static final String warm = "warm";
+     private static final String cold = "cold";
      private  float Temp;
      private String templLevel;
      
      public TemperatureSensor(String ID, Boolean state, float Temp, String tempLevel){
-	     
+	   super.device ID = ID;
+	   super.deviceState = state;
+	   this.Temp = Temp;
+	   this. tempLevel = tempLevel
+	    
 	     
 }
 public  float getTempLevel() {
