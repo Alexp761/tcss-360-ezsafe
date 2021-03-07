@@ -1,17 +1,21 @@
 package com.threesixty.ezsafe;
 
-public class Keypad {
+public class Keypad extends Device {
 	private String armState;
 	private String deviceID;
 	private boolean deviceState;
 	private boolean loginState;
+	private int pin;
 	
-	
-    public boolean acceptPIN(int pin) {
+    public boolean acceptPIN(int pinInserted) {
+    	if (this.pin == pinInserted) {
+    		loginState = true;
+    	}
+		return loginState;
     }
     
     
-    public boolean getArmedStatus() {
+    public String getArmedStatus() {
     	return this.armState; 
     }
     
@@ -29,6 +33,6 @@ public class Keypad {
     }
     
     public void requestEmergencyService(final String Service) {
-    	
+    	BaseStation.callEmergencyService(Service);
     }
 }
