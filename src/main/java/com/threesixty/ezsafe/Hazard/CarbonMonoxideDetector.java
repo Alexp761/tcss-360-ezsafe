@@ -1,13 +1,12 @@
 package com.threesixty.ezsafe.Hazard;
-
-
 import com.threesixty.ezsafe.Device;
 
 public class CarbonMonoxideDetector extends Device {
 
-//Actual LOW and NORMAL values are not esimated yet
-private static final double LOWCO = 1.0;
-private static final double NORMALCO = 2.0;
+private static final double LOWCOMIN = 0.5;
+private static final double LOWCOMAX = 5.0;
+private static final double NORCOMIN = 5.0;
+private static final double NORCOMAX= 30.0;
 private static final String DANGER= "Danger";
 private static final String NORMAL = "Normal";
 private static final String LOW = "Low";
@@ -36,11 +35,11 @@ public double getCMParticle(){
 
 private void setCMLevel(final double particle){
 
-if(particle <= LOWCO){
+if(particle <= LOWCOMIN ||(particle>=LOWCOMIN && particle<LOWCOMAX)){
    this.CMLevel = LOW;
 
 }
-else if (particle<= NORMALCO){
+else if (particle >= NORCOMIN && particle<NORCOMAX){
 
   this.CMLevel = NORMAL;
 
@@ -53,7 +52,7 @@ else{
 
 }
 
-public void changeCMPartile(final double particle ){
+public void changeCMPartile(final double particle  ){
 
     this.CMParticle = particle;
     setCMLevel(particle);
