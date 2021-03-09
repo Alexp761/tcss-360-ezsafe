@@ -35,8 +35,8 @@ public class TemperatureSensor extends Device {
 	private float aboveNormal;
 	
      private final String normal= "Normal ";
-     private final String aboveNormal = "aboveNormal";
-     private final String  belowNormal= "belowNormal";
+     private final String Dangerous = "Dangerous";
+     private final String  low= "lowl";
      
      private   float Temp;
      private  String templLevel;
@@ -60,8 +60,8 @@ private void changeTempLevel(int Temp) {
 		this.templLevel=normal;
 	
 } if else (Temp >=300.0) {
-	this.templLevel=aboveNormal;
+	this.templLevel=Dangerous;
 }
 else {
-	this.templLevel= belowNormal;
+	this.templLevel= low;
 }
