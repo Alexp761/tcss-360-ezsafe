@@ -8,32 +8,60 @@ package com.threesixty.ezsafe.Hazard;
 // above 77.0 we will name it as warm. 
 
 // 
+
+//
+//Attributes:
+
+//DeviceID:String
+//Temperature:Float
+//On/Off:Boolean
+//TemperatureLevel:String
+
+//Methods:
+
+//getDeviceID():String
+//getDeviceState:Boolean
+//getTempLevel()::String
+
+//turnOnOff()
+
+//changeTempLevel(Temperature) 
+//changeTemp(Degree)    
+//    (Temperature level: Low and dangerous)
+
 public class TemperatureSensor extends Device {
-	private float normalTemp=66.0; 
-	private float warmTemp=78.0;
-	private float coldTemp=65.0;
+	private final float normalTemp; 
+	private final float belowNormal;
+	private float aboveNormal;
 	
-     private String confortable= "confortable ";
-     private String warm = "warm";
-     private String cold = "cold";
-     private  float Temp;
-     private String templLevel;
+     private final String normal= "Normal ";
+     private final String aboveNormal = "aboveNormal";
+     private final String  belowNormal= "belowNormal";
+     
+     private   float Temp;
+     private  String templLevel;
      
      public TemperatureSensor(String ID, Boolean state, float Temp, String tempLevel)
 }
-public  float getTempLevel() {
-	return this.Temp;
+		super.deviceID = ID;
+		super.deviceState = state; 
+		this.Temp=Temp;
+		this.tempLevel=tempLevel;
+		changeTempLevel(Temp,tempLevel);
+	}
+
+public  String getTempLevel() {
+	changeTempLevel(this.Temp, this.templLevel)
+	return this.templLevelemp;
 }
-public String getTempLevel() {
-	return this.TempeLevel;
-}
-private void setTempLevel(int Temp) {
-	if(Temp>=60.0 $$ Temp <=77.0)
-		this.templLevel=confortable;
+
+private void changeTempLevel(int Temp) {
+	if(Temp>=41.0 $$ Temp <=300.0)
+		this.templLevel=normal;
 	
-} if else (Temp >77.0) {
-	this.templLevel=warm;
+} if else (Temp >=300.0) {
+	this.templLevel=aboveNormal;
 }
 else {
-	this.templLevel= cold;
+	this.templLevel= belowNormal;
 }
