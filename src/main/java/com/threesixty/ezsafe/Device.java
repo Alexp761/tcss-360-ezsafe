@@ -16,4 +16,9 @@ public abstract class Device {
         this.deviceState = deviceState;
     }
 
+    @Override
+    public String toString() {
+        return getClass().getName();
+    }
+
 }
