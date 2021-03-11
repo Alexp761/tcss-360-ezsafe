@@ -366,6 +366,40 @@ public class EzsafeApplication {
 		btnHome.setBounds(330, 364, 100, 64);
 		frmEzsafeApplication.getContentPane().add(btnHome);
 
+		JButton btnEnter = new JButton("ENTER");
+		btnEnter.setBackground(new Color(255, 255, 255));
+		btnEnter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (pinCheck == false && !value1.getText().equals("")) {
+					if ((Integer.parseInt(value1.getText()) == pin) && value1.getDocument().getLength() == 4) {
+						pinCheck = true;
+						value1.setText(null);
+						value1.setVisible(false);
+						lblPlease.setVisible(false);
+						lblNewLabel_4.setForeground(Color.RED);
+						lblNewLabel_2.setForeground(Color.RED);
+						lblNewLabel_1.setForeground(Color.GREEN);
+						lblNewLabel.setForeground(Color.RED);
+						lblHome.setVisible(true);
+
+					} else {
+						JOptionPane.showMessageDialog(new JFrame(), "Invalid Credentials.");
+						value1.setText(null);
+					}
+				}
+			}
+		});
+
+		btnEnter.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnEnter.setBounds(201, 250, 80, 64);
+		frmEzsafeApplication.getContentPane().add(btnEnter);
+
+		JButton btnNothing = new JButton("...");
+		btnNothing.setBackground(new Color(255, 255, 255));
+		btnNothing.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnNothing.setBounds(21, 250, 80, 64);
+		frmEzsafeApplication.getContentPane().add(btnNothing);
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(21, 476, 877, 278);
 		frmEzsafeApplication.getContentPane().add(panel_1);
@@ -458,6 +492,7 @@ public class EzsafeApplication {
 		});
 		newDeviceBtn.setBounds(275, 224, 371, 29);
 		panel_1.add(newDeviceBtn);
+
 	}
 
 	public Device createDevice(String newDeviceString) {
