@@ -24,6 +24,7 @@ import javax.swing.UIManager;
 import javax.swing.SwingConstants;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JTextPane;
 
 public class EzsafeApplication {
 	
@@ -108,19 +109,26 @@ public class EzsafeApplication {
 		lblNewLabel_2.setBounds(75, 11, 39, 37);
 		panel.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("4");
-		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2_1.setForeground(Color.RED);
-		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblNewLabel_2_1.setBackground(Color.RED);
-		lblNewLabel_2_1.setBounds(102, 11, 39, 37);
-		panel.add(lblNewLabel_2_1);
+		JLabel lblNewLabel_4 = new JLabel("4");
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_4.setForeground(Color.RED);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel_4.setBackground(Color.RED);
+		lblNewLabel_4.setBounds(102, 11, 39, 37);
+		panel.add(lblNewLabel_4);
 		
 		JLabel lblHome = new JLabel("Home");
 		lblHome.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblHome.setBounds(374, -14, 57, 62);
 		panel.add(lblHome);
 		lblHome.setVisible(false);
+		
+		JLabel lblAlert = new JLabel();
+		lblAlert.setVerticalAlignment(SwingConstants.TOP);
+		lblAlert.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblAlert.setBounds(32, 95, 383, 253);
+		panel.add(lblAlert);
+		lblAlert.setVisible(false);
 		
 		JButton btn1 = new JButton("1");
 		btn1.setBackground(new Color(255, 255, 255));
@@ -253,26 +261,93 @@ public class EzsafeApplication {
 		ImageIcon icon1 = new ImageIcon(new ImageIcon("fire.png").getImage().getScaledInstance(80,70, Image.SCALE_DEFAULT));
 		JButton btnFire = new JButton(icon1);
 		btnFire.setBackground(new Color(255, 255, 255));
+		btnFire.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (pinCheck == false) {
+					JOptionPane.showMessageDialog(new JFrame(), "You must log in first!");
+					value1.setText(null);
+				} else {
+				lblNewLabel_4.setForeground(Color.GREEN);
+				lblNewLabel_2.setForeground(Color.RED); 
+				lblNewLabel_1.setForeground(Color.RED);
+				lblNewLabel.setForeground(Color.RED);
+				lblHome.setVisible(false);
+				lblAlert.setText("<html><p>Fire Detected.\nLocal Fire Departments have been alerted and are en route to your location.</p></html>");
+				lblAlert.setVisible(true);
+				}
+			}
+		});
 		btnFire.setBounds(21, 364, 80, 64);
 		frmEzsafeApplication.getContentPane().add(btnFire);
 		
 		ImageIcon icon2 = new ImageIcon(new ImageIcon("police.png").getImage().getScaledInstance(80,60, Image.SCALE_DEFAULT));
 		JButton btnPolice = new JButton(icon2);
 		btnPolice.setBackground(new Color(255, 255, 255));
+		btnPolice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (pinCheck == false) {
+					JOptionPane.showMessageDialog(new JFrame(), "You must log in first!");
+					value1.setText(null);
+				} else {
+				lblNewLabel_4.setForeground(Color.GREEN);
+				lblNewLabel_2.setForeground(Color.RED); 
+				lblNewLabel_1.setForeground(Color.RED);
+				lblNewLabel.setForeground(Color.RED);
+				lblHome.setVisible(false);
+				lblAlert.setText("<html><p>Break-in detected.\n Police have been alerted and are en route to your location.</p></html>");
+				lblAlert.setVisible(true);
+				}
+			}
+		});
 		btnPolice.setBounds(111, 364, 80, 64);
 		frmEzsafeApplication.getContentPane().add(btnPolice);
 		
 		ImageIcon icon3 = new ImageIcon(new ImageIcon("hospital.png").getImage().getScaledInstance(65,65, Image.SCALE_DEFAULT));
 		JButton btnHospital = new JButton(icon3);
 		btnHospital.setBackground(new Color(255, 255, 255));
+		btnHospital.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (pinCheck == false) {
+					JOptionPane.showMessageDialog(new JFrame(), "You must log in first!");
+					value1.setText(null);
+				} else {
+				lblNewLabel_4.setForeground(Color.GREEN);
+				lblNewLabel_2.setForeground(Color.RED); 
+				lblNewLabel_1.setForeground(Color.RED);
+				lblNewLabel.setForeground(Color.RED);
+				lblHome.setVisible(false);
+				lblAlert.setText("<html><p>Medical Emergency Detected. \nEmergency Dispatch has been alerted and are en route to your location.</p></html>");
+				lblAlert.setVisible(true);
+				}
+			}
+		});
 		btnHospital.setBounds(201, 364, 80, 64);
 		frmEzsafeApplication.getContentPane().add(btnHospital);
 		
 		JButton btnHome = new JButton("HOME");
 		btnHome.setBackground(new Color(255, 255, 255));
+		btnHome.addActionListener(new ActionListener() {		
+			public void actionPerformed(ActionEvent e) {
+			if (pinCheck == false) {
+				JOptionPane.showMessageDialog(new JFrame(), "You must log in first!");
+				value1.setText(null);
+			} else {
+				value1.setText(null);
+				value1.setVisible(false);
+				lblPlease.setVisible(false);
+				lblNewLabel_4.setForeground(Color.RED);
+				lblNewLabel_2.setForeground(Color.RED); 
+				lblNewLabel_1.setForeground(Color.GREEN);
+				lblNewLabel.setForeground(Color.RED);
+				lblHome.setVisible(true);
+				lblAlert.setVisible(false);
+				}
+			}
+		});
 		btnHome.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnHome.setBounds(330, 364, 100, 64);
 		frmEzsafeApplication.getContentPane().add(btnHome);
+
 		
 		JButton btnEnter = new JButton("ENTER");
 		btnEnter.setBackground(new Color(255, 255, 255));
@@ -284,6 +359,8 @@ public class EzsafeApplication {
 						value1.setText(null);
 						value1.setVisible(false);
 						lblPlease.setVisible(false);
+						lblNewLabel_4.setForeground(Color.RED);
+						lblNewLabel_2.setForeground(Color.RED); 
 						lblNewLabel_1.setForeground(Color.GREEN);
 						lblNewLabel.setForeground(Color.RED);
 						lblHome.setVisible(true);
