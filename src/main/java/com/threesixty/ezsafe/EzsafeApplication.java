@@ -1,5 +1,6 @@
 package com.threesixty.ezsafe;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -16,11 +17,14 @@ import javax.swing.JTextField;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.SwingConstants;
 
 import javax.swing.ImageIcon;
-
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 
 import javax.swing.JList;
@@ -29,6 +33,7 @@ import javax.swing.JRadioButton;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
+import com.threesixty.ezsafe.Burglary.SecurityCamera;
 import com.threesixty.ezsafe.Hazard.CarbonMonoxideDetector;
 import com.threesixty.ezsafe.Hazard.SmokeDetector;
 import com.threesixty.ezsafe.Hazard.WaterLeakSensor;
@@ -394,11 +399,48 @@ public class EzsafeApplication {
 		btnEnter.setBounds(201, 250, 80, 64);
 		frmEzsafeApplication.getContentPane().add(btnEnter);
 
-		JButton btnNothing = new JButton("...");
+		
+		
+		ImageIcon camIcon = new ImageIcon(
+				new ImageIcon("SecurityIcon.png").getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT));
+		JButton btnNothing = new JButton(camIcon);
+		
 		btnNothing.setBackground(new Color(255, 255, 255));
 		btnNothing.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNothing.setBounds(21, 250, 80, 64);
 		frmEzsafeApplication.getContentPane().add(btnNothing);
+		btnNothing.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (pinCheck == false) {
+					JOptionPane.showMessageDialog(new JFrame(), "You must log in first!");
+					value1.setText(null);
+				} else { 
+				
+					SecurityCamera cam = new SecurityCamera("123", true);
+					
+					BufferedImage returning;
+			        try {
+			            returning = ImageIO.read(new File("staticScreen.jpg"));
+			        } catch (IOException error) {
+			            error.printStackTrace();
+			            returning = null; }
+					
+					cam.record(returning);
+					
+					JFrame img = new JFrame();
+			        
+			        ImageIcon imageIcon = new ImageIcon(cam.getRecording());
+			        JLabel jLabel = new JLabel();
+			        jLabel.setIcon(imageIcon);
+			        img.getContentPane().add(jLabel, BorderLayout.CENTER);
+	
+			        img.pack();
+			        img.setLocationRelativeTo(null);
+			        img.setVisible(true);
+				}
+			}
+		});
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(21, 476, 877, 278);
