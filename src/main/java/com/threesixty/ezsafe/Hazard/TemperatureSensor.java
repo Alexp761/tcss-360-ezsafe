@@ -1,6 +1,6 @@
 package com.threesixty.ezsafe.Hazard;
 
-
+// published by Michael Tademu
 //Attributes:
 
 //DeviceID:String
