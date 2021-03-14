@@ -21,9 +21,9 @@ package com.threesixty.ezsafe.Hazard;
 //    (Temperature level: Low and dangerous)
 
 public class TemperatureSensor extends Device {
-	private final float normal; 
-	private final float low;
-	private float Dangerous;
+	private final float normal=41; 
+	private final float low=40;
+	private float Dangerous=300;
 	
      private final String normal= "Normal ";
      private final String Dangerous = "Dangerous";
@@ -38,11 +38,10 @@ public class TemperatureSensor extends Device {
 		super.deviceState = state; 
 		this.Temp=Temp;
 		this.tempLevel=tempLevel;
-		changeTempLevel(Temp,tempLevel);
+		
 	}
 
 public  String getTempLevel() {
-	changeTempLevel(this.Temp, this.templLevel)
 	return this.templLevelemp;
 }
 
@@ -50,9 +49,16 @@ private void changeTempLevel(int Temp) {
 	if(Temp>=41.0 $$ Temp <=300.0)
 		this.templLevel=normal;
 	
-} if else (Temp >=300.0) {
+}  else if (Temp >=300.0) {
 	this.templLevel=Dangerous;
 }
 else {
 	this.templLevel= low;
+ }
+}
+public void changeTemp(int Temp) {
+	this.Temp=Temp;
+	changeTempLevel(Temp);
+}
+	
 }
