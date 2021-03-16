@@ -44,11 +44,14 @@ public class EzsafeApplication {
 
 	private JFrame frmEzsafeApplication;
 	private JLabel labelField;
-
 	private JTextField value1;
 	private boolean pinCheck = false;
 	private int pin = 0000;
 
+
+    /**
+     * Main Method.
+     */
 	public static void main(String[] args) {
 		baseStation = new BaseStation();
 
@@ -65,12 +68,20 @@ public class EzsafeApplication {
 		});
 	}
 
+
+    /**
+     * Constructor for the EzsafeApplication.
+     */
 	public EzsafeApplication() {
 
 		initialize();
 
 	}
 
+
+    /**
+     * Lay out the components and makes this frame visible.
+     */
 	private void initialize() {
 		frmEzsafeApplication = new JFrame();
 		frmEzsafeApplication.getContentPane().setBackground(new Color(51, 51, 51));
@@ -99,8 +110,8 @@ public class EzsafeApplication {
 		value1.setForeground(Color.BLACK);
 		value1.setBackground(Color.WHITE);
 		value1.setBounds(137, 167, 155, 100);
-		panel.add(value1);
 		value1.setColumns(10);
+		panel.add(value1);
 
 		JLabel lblNewLabel = new JLabel(" 1");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -147,11 +158,29 @@ public class EzsafeApplication {
 		panel.add(lblAlert);
 		lblAlert.setVisible(false);
 
-		
 		JList keypadComponentList = new JList();
 		keypadComponentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		keypadComponentList.setBounds(20, 59, 399, 383);
+		keypadComponentList.setBounds(20, 115, 399, 327);
 		panel.add(keypadComponentList);
+		
+		JLabel lblPressEnter = new JLabel("Select a device and press Enter...");
+		lblPressEnter.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblPressEnter.setBounds(20, 46, 326, 76);
+		panel.add(lblPressEnter);
+		lblPressEnter.setVisible(false);
+		
+		JLabel lblStatus = new JLabel("Device Status\r\n");
+		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblStatus.setBounds(20, 46, 395, 76);
+		panel.add(lblStatus);
+		lblStatus.setVisible(false);
+		
+		JLabel lblArmedStatus = new JLabel("Current Armed Status: ");
+		lblArmedStatus.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblArmedStatus.setBounds(20, 95, 395, 76);
+		panel.add(lblArmedStatus);
+		lblArmedStatus.setVisible(false);
 		
 		JButton btn1 = new JButton("1");
 		btn1.setBackground(new Color(255, 255, 255));
@@ -263,36 +292,13 @@ public class EzsafeApplication {
 		btn9.setBounds(201, 175, 80, 64);
 		frmEzsafeApplication.getContentPane().add(btn9);
 
-		JButton btnAway = new JButton("AWAY");
-		btnAway.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-	            int index = keypadComponentList.getSelectedIndex();
-	            System.out.println("Index Selected: " + index);
-			}
-		});
-		btnAway.setBackground(new Color(255, 255, 255));
-		btnAway.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnAway.setBounds(330, 25, 100, 64);
-		frmEzsafeApplication.getContentPane().add(btnAway);
-
-		JButton btnArm = new JButton("ARM");
-		btnArm.setBackground(new Color(255, 255, 255));
-		btnArm.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnArm.setBounds(330, 100, 100, 64);
-		frmEzsafeApplication.getContentPane().add(btnArm);
-
-		JButton btnDisarm = new JButton("DISARM");
-		btnDisarm.setBackground(new Color(255, 255, 255));
-		btnDisarm.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnDisarm.setBounds(330, 173, 100, 64);
-		frmEzsafeApplication.getContentPane().add(btnDisarm);
-
 		ImageIcon icon1 = new ImageIcon(
 				new ImageIcon("fire.png").getImage().getScaledInstance(80, 70, Image.SCALE_DEFAULT));
 		JButton btnFire = new JButton(icon1);
 		btnFire.setBackground(new Color(255, 255, 255));
 		btnFire.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				keypadComponentList.clearSelection();
 				if (pinCheck == false) {
 					JOptionPane.showMessageDialog(new JFrame(), "You must log in first!");
 					value1.setText(null);
@@ -305,6 +311,10 @@ public class EzsafeApplication {
 					lblAlert.setText(
 							"<html><p>Fire Detected.\nLocal Fire Departments have been alerted and are en route to your location.</p></html>");
 					lblAlert.setVisible(true);
+					lblPressEnter.setVisible(false);
+					keypadComponentList.setVisible(false);
+					lblStatus.setVisible(false);
+					lblArmedStatus.setVisible(false);
 				}
 			}
 		});
@@ -317,6 +327,7 @@ public class EzsafeApplication {
 		btnPolice.setBackground(new Color(255, 255, 255));
 		btnPolice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				keypadComponentList.clearSelection();
 				if (pinCheck == false) {
 					JOptionPane.showMessageDialog(new JFrame(), "You must log in first!");
 					value1.setText(null);
@@ -329,6 +340,10 @@ public class EzsafeApplication {
 					lblAlert.setText(
 							"<html><p>Break-in detected.\n Police have been alerted and are en route to your location.</p></html>");
 					lblAlert.setVisible(true);
+					lblPressEnter.setVisible(false);
+					keypadComponentList.setVisible(false);
+					lblStatus.setVisible(false);
+					lblArmedStatus.setVisible(false);
 				}
 			}
 		});
@@ -341,6 +356,7 @@ public class EzsafeApplication {
 		btnHospital.setBackground(new Color(255, 255, 255));
 		btnHospital.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				keypadComponentList.clearSelection();
 				if (pinCheck == false) {
 					JOptionPane.showMessageDialog(new JFrame(), "You must log in first!");
 					value1.setText(null);
@@ -353,6 +369,10 @@ public class EzsafeApplication {
 					lblAlert.setText(
 							"<html><p>Medical Emergency Detected. \nEmergency Dispatch has been alerted and are en route to your location.</p></html>");
 					lblAlert.setVisible(true);
+					lblPressEnter.setVisible(false);
+					keypadComponentList.setVisible(false);
+					lblStatus.setVisible(false);
+					lblArmedStatus.setVisible(false);
 				}
 			}
 		});
@@ -376,13 +396,50 @@ public class EzsafeApplication {
 					lblNewLabel.setForeground(Color.RED);
 					lblHome.setVisible(true);
 					lblAlert.setVisible(false);
+					lblPressEnter.setVisible(true);
+					keypadComponentList.setVisible(true);
+					lblStatus.setVisible(false);
 				}
 			}
 		});
+		
+		JButton btnEnterDevice = new JButton("E");
+		btnEnterDevice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int index = keypadComponentList.getSelectedIndex();
+				if (index < 0) {
+					JOptionPane.showMessageDialog(new JFrame(), "Please select a device in the keypad!");
+				} else {
+					lblNewLabel_4.setForeground(Color.RED);
+					lblNewLabel_2.setForeground(Color.GREEN);
+					lblNewLabel_1.setForeground(Color.RED);
+					lblNewLabel.setForeground(Color.RED);
+					
+					keypadComponentList.setVisible(false);
+					lblPressEnter.setVisible(false);
+					lblHome.setVisible(false);
+					lblStatus.setVisible(true);
+					lblArmedStatus.setVisible(true);
+					
+					System.out.println("Index Selected: " + index);
+					Device myDevice = (Device) keypadComponentList.getModel().getElementAt(index);
+					//System.out.println(myDevice.KeyPad.getArmedStatus());
+					lblArmedStatus.setText("Current Armed Status: " + myDevice.getDeviceID());
+				}
+			}
+		});
+		btnEnterDevice.setVisible(false);
+		btnEnterDevice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnEnterDevice.setBackground(Color.WHITE);
+		btnEnterDevice.setBounds(201, 250, 80, 64);
+		frmEzsafeApplication.getContentPane().add(btnEnterDevice);
 		btnHome.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnHome.setBounds(330, 364, 100, 64);
 		frmEzsafeApplication.getContentPane().add(btnHome);
 
+		
+		
+		
 		JButton btnEnter = new JButton("ENTER");
 		btnEnter.setBackground(new Color(255, 255, 255));
 		btnEnter.addActionListener(new ActionListener() {
@@ -398,7 +455,10 @@ public class EzsafeApplication {
 						lblNewLabel_1.setForeground(Color.GREEN);
 						lblNewLabel.setForeground(Color.RED);
 						lblHome.setVisible(true);
-
+						btnEnterDevice.setVisible(true);
+						btnEnter.setVisible(false);
+						lblPressEnter.setVisible(true);
+						keypadComponentList.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(new JFrame(), "Invalid Credentials.");
 						value1.setText(null);
@@ -428,7 +488,6 @@ public class EzsafeApplication {
 					JOptionPane.showMessageDialog(new JFrame(), "You must log in first!");
 					value1.setText(null);
 				} else { 
-				
 					SecurityCamera cam = new SecurityCamera("123", true);
 					
 					BufferedImage returning;
@@ -569,6 +628,7 @@ public class EzsafeApplication {
 		            Device myDevice = (Device) componentList.getModel().getElementAt(index);
 		            // System.out.println("Item = " + myDevice);
 		            BaseStation.deactivateDevice(myDevice);
+		            
 					JList devicesJList = new JList(baseStation.getSyncedDevices().toArray());
 					ListModel devicesModel = devicesJList.getModel();
 		            componentList.setModel(devicesModel);
@@ -578,9 +638,32 @@ public class EzsafeApplication {
 		});
 		btnDeactivateDevice.setBounds(574, 224, 279, 29);
 		panel_1.add(btnDeactivateDevice);
+		
+				JButton btnAway = new JButton("AWAY");
+				
+				btnAway.setBackground(new Color(255, 255, 255));
+				btnAway.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				btnAway.setBounds(330, 25, 100, 64);
+				frmEzsafeApplication.getContentPane().add(btnAway);
+				
+						JButton btnArm = new JButton("ARM");
+						btnArm.setBackground(new Color(255, 255, 255));
+						btnArm.setFont(new Font("Tahoma", Font.PLAIN, 16));
+						btnArm.setBounds(330, 100, 100, 64);
+						frmEzsafeApplication.getContentPane().add(btnArm);
+						
+								JButton btnDisarm = new JButton("DISARM");
+								btnDisarm.setBackground(new Color(255, 255, 255));
+								btnDisarm.setFont(new Font("Tahoma", Font.PLAIN, 16));
+								btnDisarm.setBounds(330, 173, 100, 64);
+								frmEzsafeApplication.getContentPane().add(btnDisarm);
 
 	}
 
+
+    /**
+     * Method for creating a new device.
+     */
 	public Device createDevice(String newDeviceString) {
 		switch (newDeviceString) {
 		case "Carbon Monoxide Detector":
@@ -612,6 +695,10 @@ public class EzsafeApplication {
 		}
 	}
 
+
+    /**
+     * Method for creating an device ID for a device.
+     */
 	public String createID() {
 
 		return "000000";
