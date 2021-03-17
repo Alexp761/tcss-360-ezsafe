@@ -44,6 +44,10 @@ public class BaseStation {
 		this.armState = armState;
 	}
 
+	public String getArmState() {
+		return armState;
+	}
+
 	public static void callEmergencyService(String emergencyService) {
 		if (emergencyService == "Fire") {
 			currentRequest = FIRE_DEPARTMENT;
