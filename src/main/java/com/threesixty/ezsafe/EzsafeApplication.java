@@ -557,11 +557,18 @@ public class EzsafeApplication {
 			public void mouseClicked(MouseEvent e) {
 				Device selectedDevice = componentList.getSelectedValue();
 				StringBuilder deviceStringBuilder = new StringBuilder();
+
+				// when security camera is clicked
+				if (selectedDevice.getClass() == SecurityCamera.class) {
+					showRecording((SecurityCamera) selectedDevice);
+				}
+
 				deviceStringBuilder.append("Device Type: " + selectedDevice.toString() + "\r\n");
 				deviceStringBuilder.append("Device ID: " + selectedDevice.deviceID + "\r\n");
 				// append other data
 				deviceStringBuilder.append("Device State: " + (selectedDevice.isDeviceState() ? "on" : "off") + "\r\n");
 				deviceOutPane.setText(deviceStringBuilder.toString());
+
 			}
 		});
 		panel_1.add(componentList);
@@ -639,7 +646,7 @@ public class EzsafeApplication {
 				}
 			}
 		});
-		newDeviceBtn.setBounds(265, 224, 137, 29);
+		newDeviceBtn.setBounds(265, 224, 110, 29);
 		panel_1.add(newDeviceBtn);
 
 		deviceOutPane = new JTextPane();
@@ -671,8 +678,30 @@ public class EzsafeApplication {
 				}
 			}
 		});
-		btnDeactivateDevice.setBounds(478, 224, 155, 29);
+		btnDeactivateDevice.setBounds(391, 224, 110, 29);
 		panel_1.add(btnDeactivateDevice);
+
+		JButton btnEditDevice = new JButton("Edit Device");
+		btnEditDevice.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = componentList.getSelectedIndex();
+				if (pinCheck == false) {
+					JOptionPane.showMessageDialog(new JFrame(), "You must log in first!");
+					value1.setText(null);
+				} else if (index < 0) {
+					JOptionPane.showMessageDialog(new JFrame(), "Please select a device in the test controller!");
+					value1.setText(null);
+				} else {
+					Device selectedDevice = componentList.getSelectedValue();
+
+					// open new window with edit options
+				}
+			}
+		});
+
+		btnEditDevice.setBounds(513, 224, 110, 29);
+		panel_1.add(btnEditDevice);
 
 		JButton btnAway = new JButton("AWAY");
 
@@ -731,5 +760,30 @@ public class EzsafeApplication {
 
 	public String createID() {
 		return String.format("%06d", deviceIDSequence++);
+	}
+
+	public void showRecording(SecurityCamera cam) {
+
+		BufferedImage returning;
+		try {
+			returning = ImageIO.read(new File("staticScreen.jpg"));
+		} catch (IOException error) {
+			error.printStackTrace();
+			returning = null;
+		}
+
+		cam.record(returning);
+
+		JFrame img = new JFrame();
+
+		ImageIcon imageIcon = new ImageIcon(cam.getRecording());
+		JLabel jLabel = new JLabel();
+		jLabel.setIcon(imageIcon);
+		img.getContentPane().add(jLabel, BorderLayout.CENTER);
+
+		img.pack();
+		img.setLocationRelativeTo(null);
+		img.setVisible(true);
+
 	}
 }
