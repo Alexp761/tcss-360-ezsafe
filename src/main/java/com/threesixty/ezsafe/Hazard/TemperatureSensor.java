@@ -90,12 +90,7 @@ public class TempratureSensor {
          d.changeTempLevel(temprature);
          
          System.out.println("Device Level: "+d.getTempratureLevel() );
-         
-         
-         
-         
-        
-        
+            
         
     }
 }
