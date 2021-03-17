@@ -32,6 +32,7 @@ import javax.swing.ListSelectionModel;
 import com.threesixty.ezsafe.Hazard.CarbonMonoxideDetector;
 import com.threesixty.ezsafe.Hazard.SmokeDetector;
 import com.threesixty.ezsafe.Hazard.WaterLeakSensor;
+import javax.swing.JTextPane;
 
 public class EzsafeApplication {
 
@@ -43,6 +44,9 @@ public class EzsafeApplication {
 	private JTextField value1;
 	private boolean pinCheck = false;
 	private int pin = 0000;
+	private int deviceIDSequence = 0000;
+
+	private JTextPane deviceOutPane;
 
 	public static void main(String[] args) {
 		baseStation = new BaseStation();
@@ -413,13 +417,24 @@ public class EzsafeApplication {
 		selectComponentLabel.setBounds(6, 32, 137, 16);
 		panel_1.add(selectComponentLabel);
 
-		JList componentList = new JList();
+		JList<Device> componentList = new JList<Device>();
 		componentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		componentList.setBounds(6, 56, 247, 216);
 		JList devicesJList = new JList(baseStation.getSyncedDevices().toArray());
-		ListModel devicesModel = devicesJList.getModel();
+		ListModel<Device> devicesModel = devicesJList.getModel();
 		componentList.setModel(devicesModel);
-
+		componentList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Device selectedDevice = componentList.getSelectedValue();
+				StringBuilder deviceStringBuilder = new StringBuilder();
+				deviceStringBuilder.append("Device Type: " + selectedDevice.toString() + "\r\n");
+				deviceStringBuilder.append("Device ID: " + selectedDevice.deviceID + "\r\n");
+				// append other data
+				deviceStringBuilder.append("Device State: " + (selectedDevice.isDeviceState() ? "on" : "off") + "\r\n");
+				deviceOutPane.setText(deviceStringBuilder.toString());
+			}
+		});
 		panel_1.add(componentList);
 
 		JRadioButton carboDetBtn = new JRadioButton("Carbon Monoxide Detector");
@@ -493,6 +508,11 @@ public class EzsafeApplication {
 		newDeviceBtn.setBounds(275, 224, 371, 29);
 		panel_1.add(newDeviceBtn);
 
+		deviceOutPane = new JTextPane();
+		deviceOutPane.setEditable(false);
+		deviceOutPane.setBounds(645, 56, 226, 216);
+		panel_1.add(deviceOutPane);
+
 	}
 
 	public Device createDevice(String newDeviceString) {
@@ -527,7 +547,6 @@ public class EzsafeApplication {
 	}
 
 	public String createID() {
-
-		return "000000";
+		return String.format("%06d", deviceIDSequence++);
 	}
 }

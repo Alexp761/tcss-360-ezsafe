@@ -15,10 +15,11 @@ public abstract class Device {
     public void setDeviceState(final boolean deviceState) {
         this.deviceState = deviceState;
     }
+    
 
     @Override
     public String toString() {
-        return getClass().getName();
+        return getClass().getSimpleName();
     }
 
 }
