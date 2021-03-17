@@ -11,13 +11,13 @@ import java.util.*;
 
 
 
-public class TempratureSensor {
+public class TemperatureSensor {
     private  String deviceID;
     private double temprature;
     private boolean onOff;
     private String tempratureLevel;
 
-    public TempratureSensor(String deviceID, double temprature, boolean onOff) {
+    public TemperatureSensor(String deviceID, double temprature, boolean onOff) {
         this.deviceID = deviceID;
         this.temprature = temprature;
         this.onOff = onOff;
