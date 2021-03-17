@@ -13,13 +13,13 @@ import java.util.*;
 
 public class TemperatureSensor {
     private  String deviceID;
-    private double temprature;
+    private double Temperature;
     private boolean onOff;
-    private String tempratureLevel;
+    private String TemperatureLevel;
 
-    public TemperatureSensor(String deviceID, double temprature, boolean onOff) {
+    public TemperatureSensor(String deviceID, double Temperature, boolean onOff) {
         this.deviceID = deviceID;
-        this.temprature = temprature;
+        this.Temperature = Temperature;
         this.onOff = onOff;
     }
     
@@ -29,8 +29,8 @@ public class TemperatureSensor {
         return deviceID;
     }
 
-    public String getTempratureLevel() {
-        return tempratureLevel;
+    public String getTemperatureLevel() {
+        return TemperatureLevel;
     }
     
     
@@ -47,31 +47,31 @@ public class TemperatureSensor {
     }
     }
     
-    public void changeTempLevel(double temprature){
-        if(temprature<41 ){
-            this.tempratureLevel=" Low";
-        } else if(temprature>300){
-            this.tempratureLevel="Dengerous";
+    public void changeTempLevel(double Temperature){
+        if(Temperature<41 ){
+            this.TemperatureLevel=" Low";
+        } else if(Temperature>300){
+            this.TemperatureLevel="Dengerous";
         }
         else{
-            this.tempratureLevel = "normal";
+            this.TemperatureLevel = "normal";
   
     }
     }
     
     public void changeTemp(double degree){
-        this.temprature = temprature;
+        this.Temperature = Temperature;
     }
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         
         String id;
-        double temprature;
+        double Temperature;
         
         System.out.println("Enter device ID: " );
         id = sc.nextLine();
-         System.out.println("Enter device Temprature: " );
-         temprature = sc.nextDouble();
+         System.out.println("Enter device Temperature: " );
+         Temperature = sc.nextDouble();
          System.out.println("Enter device status (ON/OFF): " );
          String status = sc.nextLine();
          if(status.equals("")){
@@ -86,11 +86,11 @@ public class TemperatureSensor {
              onOff = false;
          }
          
-         TempratureSensor d = new TempratureSensor(id, temprature, onOff);
+         TemperatureSensor d = new TemperatureSensor(id, Temperature, onOff);
          
-         d.changeTempLevel(temprature);
+         d.changeTempLevel(Temperature);
          
-         System.out.println("Device Level: "+d.getTempratureLevel() );
+         System.out.println("Device Level: "+d.getTemperatureLevel() );
             
         
     }
