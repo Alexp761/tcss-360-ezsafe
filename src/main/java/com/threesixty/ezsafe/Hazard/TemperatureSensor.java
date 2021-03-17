@@ -76,6 +76,7 @@ public class TempratureSensor {
          String status = sc.nextLine();
          if(status.equals("")){
              status = sc.nextLine();
+             
          }
          boolean onOff;
          if(status.toLowerCase().equals("ON")){
