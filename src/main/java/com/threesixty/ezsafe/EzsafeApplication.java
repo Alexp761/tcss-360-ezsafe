@@ -37,6 +37,10 @@ import com.threesixty.ezsafe.Hazard.CarbonMonoxideDetector;
 import com.threesixty.ezsafe.Hazard.SmokeDetector;
 import com.threesixty.ezsafe.Hazard.WaterLeakSensor;
 import javax.swing.JTextPane;
+
+import com.threesixty.ezsafe.Burglary.EntrySensor;
+import com.threesixty.ezsafe.Burglary.GlassBreakSensor;
+import com.threesixty.ezsafe.Burglary.MotionSensor;
 import com.threesixty.ezsafe.Burglary.SecurityCamera;
 
 public class EzsafeApplication {
@@ -709,16 +713,16 @@ public class EzsafeApplication {
 			return new WaterLeakSensor(createID(), true);
 
 		case "Entry Sensor":
-			return new WaterLeakSensor(createID(), true);
+			return new EntrySensor(createID(), true);
 
 		case "Glass Break Sensor":
-			return new WaterLeakSensor(createID(), true);
+			return new GlassBreakSensor(createID(), true);
 
 		case "Motion Sensor":
-			return new WaterLeakSensor(createID(), true);
+			return new MotionSensor(createID(), true);
 
 		case "Security Camera":
-			return new WaterLeakSensor(createID(), true);
+			return new SecurityCamera(createID(), true);
 
 		default:
 			return new WaterLeakSensor(createID(), true);
