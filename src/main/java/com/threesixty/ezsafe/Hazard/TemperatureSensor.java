@@ -1,64 +1,98 @@
 package com.threesixty.ezsafe.Hazard;
+import java.util.*;
 
-// published by Michael Tademu
-//Attributes:
+/**
+*
+* @author Michael Tademu
+*/
 
-//DeviceID:String
-//Temperature:Float
-//On/Off:Boolean
-//TemperatureLevel:String
 
-//Methods:
 
-//getDeviceID():String
-//getDeviceState:Boolean
-//getTempLevel()::String
+public class TempratureSensor {
+    private  String deviceID;
+    private double temprature;
+    private boolean onOff;
+    private String tempratureLevel;
 
-//turnOnOff()
+    public TempratureSensor(String deviceID, double temprature, boolean onOff) {
+        this.deviceID = deviceID;
+        this.temprature = temprature;
+        this.onOff = onOff;
+    }
+    
+    
 
-//changeTempLevel(Temperature) 
-//changeTemp(Degree)    
-//    (Temperature level: Low and dangerous)
+    public String getDeviceID() {
+        return deviceID;
+    }
 
-public class TemperatureSensor extends Device {
-	private final float normal=41; 
-	private final float low=40;
-	private float Dangerous=300;
-	
-     private final String normal= "Normal ";
-     private final String Dangerous = "Dangerous";
-     private final String  low= "lowl";
-     
-     private   float Temp;
-     private  String templLevel;
-     
-     public TemperatureSensor(String ID, Boolean state, float Temp, String tempLevel)
-}
-		super.deviceID = ID;
-		super.deviceState = state; 
-		this.Temp=Temp;
-		this.tempLevel=tempLevel;
-		
-	}
-
-public  String getTempLevel() {
-	return this.templLevelemp;
-}
-
-private void changeTempLevel(int Temp) {
-	if(Temp>=41.0 $$ Temp <=300.0)
-		this.templLevel=normal;
-	
-}  else if (Temp >=300.0) {
-	this.templLevel=Dangerous;
-}
-else {
-	this.templLevel= low;
- }
-}
-public void changeTemp(int Temp) {
-	this.Temp=Temp;
-	changeTempLevel(Temp);
-}
-	
+    public String getTempratureLevel() {
+        return tempratureLevel;
+    }
+    
+    
+    public boolean getDeviceState(){
+        return onOff;
+    }
+    
+    public void turnOnOff(){
+        if(onOff){
+            onOff = false;
+        }
+        else{
+            onOff = true;
+    }
+    }
+    
+    public void changeTempLevel(double temprature){
+        if(temprature<41 ){
+            this.tempratureLevel=" Low";
+        } else if(temprature>300){
+            this.tempratureLevel="Dengerous";
+        }
+        else{
+            this.tempratureLevel = "normal";
+  
+    }
+    }
+    
+    public void changeTemp(double degree){
+        this.temprature = temprature;
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        
+        String id;
+        double temprature;
+        
+        System.out.println("Enter device ID: " );
+        id = sc.nextLine();
+         System.out.println("Enter device Temprature: " );
+         temprature = sc.nextDouble();
+         System.out.println("Enter device status (ON/OFF): " );
+         String status = sc.nextLine();
+         if(status.equals("")){
+             status = sc.nextLine();
+         }
+         boolean onOff;
+         if(status.toLowerCase().equals("ON")){
+             onOff = true;
+         }
+         else{
+             onOff = false;
+         }
+         
+         TempratureSensor d = new TempratureSensor(id, temprature, onOff);
+         
+         d.changeTempLevel(temprature);
+         
+         System.out.println("Device Level: "+d.getTempratureLevel() );
+         
+         
+         
+         
+        
+        
+        
+    }
 }
