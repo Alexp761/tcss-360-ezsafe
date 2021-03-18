@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
@@ -35,6 +37,7 @@ import javax.swing.ListSelectionModel;
 
 import com.threesixty.ezsafe.Hazard.CarbonMonoxideDetector;
 import com.threesixty.ezsafe.Hazard.SmokeDetector;
+import com.threesixty.ezsafe.Hazard.TemperatureSensor;
 import com.threesixty.ezsafe.Hazard.WaterLeakSensor;
 import javax.swing.JTextPane;
 
@@ -694,8 +697,15 @@ public class EzsafeApplication {
 					value1.setText(null);
 				} else {
 					Device selectedDevice = componentList.getSelectedValue();
+					try {
+						EditDeviceScreen dialog = new EditDeviceScreen(selectedDevice);
 
-					// open new window with edit options
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
+					} catch (Exception exception) {
+						exception.printStackTrace();
+					}
+
 				}
 			}
 		});
@@ -736,7 +746,7 @@ public class EzsafeApplication {
 			return new SmokeDetector(createID(), true, 0.0, 0.0);
 
 		case "Temperature Sensor":
-			return new SmokeDetector(createID(), true, 0.0, 0.0);
+			return new TemperatureSensor(createID(), true, 0.0);
 
 		case "Water Leak Sensor":
 			return new WaterLeakSensor(createID(), true);
@@ -754,12 +764,12 @@ public class EzsafeApplication {
 			return new SecurityCamera(createID(), true);
 
 		default:
-			return new WaterLeakSensor(createID(), true);
+			return null;
 		}
 	}
 
 	public String createID() {
-		return String.format("%06d", deviceIDSequence++);
+		return String.format("%04d", deviceIDSequence++);
 	}
 
 	public void showRecording(SecurityCamera cam) {

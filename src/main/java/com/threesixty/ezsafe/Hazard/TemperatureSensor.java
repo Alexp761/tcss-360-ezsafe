@@ -2,6 +2,8 @@ package com.threesixty.ezsafe.Hazard;
 
 import java.util.*;
 
+import com.threesixty.ezsafe.Device;
+
 /**
  *
  * @author Michael Tademu
@@ -10,16 +12,14 @@ import java.util.*;
  * 
  */
 
-public class TemperatureSensor {
-    private String deviceID;
+public class TemperatureSensor extends Device {
     private double Temperature;
-    private boolean onOff;
     private String TemperatureLevel;
 
-    public TemperatureSensor(String deviceID, double Temperature, boolean onOff) {
-        this.deviceID = deviceID;
+    public TemperatureSensor(String deviceID, boolean state, double Temperature) {
+        super.deviceID = deviceID;
         this.Temperature = Temperature;
-        this.onOff = onOff;
+        super.deviceState = state;
     }
 
     public String getDeviceID() {
@@ -31,15 +31,15 @@ public class TemperatureSensor {
     }
 
     public boolean getDeviceState() {
-        return onOff;
+        return deviceState;
     }
 
     public void turnOnOff() {
-        if (onOff) {
-            onOff = false;
-        } else {
-            onOff = true;
-        }
+        deviceState = !deviceState;
+    }
+    
+    public void setDeviceState(boolean state) {
+    	deviceState = state;
     }
 
     public void changeTempLevel(double Temperature) {
@@ -80,7 +80,7 @@ public class TemperatureSensor {
             onOff = false;
         }
 
-        TemperatureSensor d = new TemperatureSensor(id, Temperature, onOff);
+        TemperatureSensor d = new TemperatureSensor(id, onOff, Temperature);
 
         d.changeTempLevel(Temperature);
 
