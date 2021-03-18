@@ -5,8 +5,9 @@
 package com.threesixty.ezsafe.Hazard;
 
 import com.threesixty.ezsafe.Device;
+
 /**
- *Smoke dectector class
+ * Smoke dectector class
  * 
  * 
  */
@@ -23,16 +24,17 @@ public class SmokeDetector extends Device {
     private double particleDensity;
     private double particleSize;
 
-/**
- *Smoke dectector class constructor
- * @param  ID device ID
- * @param  state device state
- * @param  particleDensity particle density
- * @param  particleSize particle size
- * 
- * 
- * 
- */
+    /**
+     * Smoke dectector class constructor
+     * 
+     * @param ID              device ID
+     * @param state           device state
+     * @param particleDensity particle density
+     * @param particleSize    particle size
+     * 
+     * 
+     * 
+     */
     public SmokeDetector(final String ID, final Boolean state, final double particleDensity,
             final double particleSize) {
         super.deviceID = ID;
@@ -43,12 +45,13 @@ public class SmokeDetector extends Device {
 
     }
 
-/**
- *Smoke level getter
- * @return current smoke level in past 30 seconds
- * 
- * 
- */
+    /**
+     * Smoke level getter
+     * 
+     * @return current smoke level in past 30 seconds
+     * 
+     * 
+     */
 
     public String getSmokeLevel() {
 
@@ -57,12 +60,14 @@ public class SmokeDetector extends Device {
         return this.smokeLevel;
 
     }
-/**
- *particle density  getter
- * @return particle density in past 30 secconds
- * 
- * 
- */
+
+    /**
+     * particle density getter
+     * 
+     * @return particle density in past 30 secconds
+     * 
+     * 
+     */
 
     public double getParticleDensity() {
 
@@ -70,89 +75,80 @@ public class SmokeDetector extends Device {
 
     }
 
-/**
- *updates the smoke level 
- * @param particleSize current particle size
- * @param partcileDensity current partile density
- * 
- * 
- */
+    /**
+     * updates the smoke level
+     * 
+     * @param particleSize    current particle size
+     * @param partcileDensity current partile density
+     * 
+     * 
+     */
 
     private void changeSmokeLevel(final double particleSize, final double particleDensity) {
 
-        
-        if(particleSize<=PM25STDSIZE){
-           
-            if(particleDensity <= PM25STDDENSITY/2){
+        if (particleSize <= PM25STDSIZE) {
+
+            if (particleDensity <= PM25STDDENSITY / 2) {
 
                 this.smokeLevel = LOW;
-            }
-            else if(particleDensity > PM25STDDENSITY/2 && particleDensity <= PM25STDDENSITY){
+            } else if (particleDensity > PM25STDDENSITY / 2 && particleDensity <= PM25STDDENSITY) {
 
                 this.smokeLevel = NORMAL;
 
-            }
-            else {
-
-                this.smokeLevel = DANGER;
-
-            }
-            
-
-        }
-        else if (particleSize > PM25STDSIZE && particleSize <= PM10STDSIZE) {
-
-            
-            if(particleDensity <= PM10STDENSITY/2){
-
-                this.smokeLevel = LOW;
-            }
-            else if(particleDensity > PM10STDENSITY/2 && particleDensity <= PM10STDENSITY){
-
-                this.smokeLevel = NORMAL;
-
-            }
-            else {
+            } else {
 
                 this.smokeLevel = DANGER;
 
             }
 
+        } else if (particleSize > PM25STDSIZE && particleSize <= PM10STDSIZE) {
 
-        }    
-        
-        
-        else{
+            if (particleDensity <= PM10STDENSITY / 2) {
 
-                this.smokeLevel =LOW;
+                this.smokeLevel = LOW;
+            } else if (particleDensity > PM10STDENSITY / 2 && particleDensity <= PM10STDENSITY) {
+
+                this.smokeLevel = NORMAL;
+
+            } else {
+
+                this.smokeLevel = DANGER;
+
+            }
+
         }
-        
+
+        else {
+
+            this.smokeLevel = LOW;
+        }
+
     }
-/**
- *updates the partile Density
- *
- * @param partcileDensity current partile density
- * 
- * 
- */
-    
+
+    /**
+     * updates the partile Density
+     *
+     * @param partcileDensity current partile density
+     * 
+     * 
+     */
+
     public void changeParticeDensity(final double particleDensity) {
 
         this.particleDensity = particleDensity;
-        
 
     }
-/**
- *updates the partile Size
- *
- * @param partcileSize current partile size
- * 
- * 
- */
-    public void changeParticleSize(final double particleSize){
 
-       this.particleSize = particleSize;
+    /**
+     * updates the partile Size
+     *
+     * @param partcileSize current partile size
+     * 
+     * 
+     */
+    public void changeParticleSize(final double particleSize) {
 
+        this.particleSize = particleSize;
 
     }
 

@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -559,18 +560,12 @@ public class EzsafeApplication {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Device selectedDevice = componentList.getSelectedValue();
-				StringBuilder deviceStringBuilder = new StringBuilder();
 
 				// when security camera is clicked
 				if (selectedDevice.getClass() == SecurityCamera.class) {
 					showRecording((SecurityCamera) selectedDevice);
 				}
-
-				deviceStringBuilder.append("Device Type: " + selectedDevice.toString() + "\r\n");
-				deviceStringBuilder.append("Device ID: " + selectedDevice.deviceID + "\r\n");
-				// append other data
-				deviceStringBuilder.append("Device State: " + (selectedDevice.isDeviceState() ? "on" : "off") + "\r\n");
-				deviceOutPane.setText(deviceStringBuilder.toString());
+				deviceOutPane.setText(getDeviceBasicDetails(selectedDevice));
 
 			}
 		});
@@ -642,10 +637,8 @@ public class EzsafeApplication {
 					Device newDevice = createDevice(newDeviceString);
 					BaseStation.activateDevice(newDevice);
 
-					JList devicesJList = new JList(baseStation.getSyncedDevices().toArray());
-					ListModel devicesModel = devicesJList.getModel();
-					componentList.setModel(devicesModel);
-					keypadComponentList.setModel(devicesModel);
+					updateComponentLists(componentList, keypadComponentList);
+
 				}
 			}
 		});
@@ -674,10 +667,7 @@ public class EzsafeApplication {
 					// System.out.println("Item = " + myDevice);
 					BaseStation.deactivateDevice(myDevice);
 
-					JList devicesJList = new JList(baseStation.getSyncedDevices().toArray());
-					ListModel devicesModel = devicesJList.getModel();
-					componentList.setModel(devicesModel);
-					keypadComponentList.setModel(devicesModel);
+					updateComponentLists(componentList, keypadComponentList);
 				}
 			}
 		});
@@ -701,6 +691,13 @@ public class EzsafeApplication {
 						EditDeviceScreen dialog = new EditDeviceScreen(selectedDevice);
 
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.addWindowListener(new WindowAdapter() {
+							@Override
+							public void windowClosed(java.awt.event.WindowEvent e) {
+								updateComponentLists(componentList, keypadComponentList);
+								deviceOutPane.setText(getDeviceBasicDetails(selectedDevice));
+							};
+						});
 						dialog.setVisible(true);
 					} catch (Exception exception) {
 						exception.printStackTrace();
@@ -770,6 +767,39 @@ public class EzsafeApplication {
 
 	public String createID() {
 		return String.format("%04d", deviceIDSequence++);
+	}
+
+	public String getDeviceBasicDetails(Device selectedDevice) {
+		StringBuilder deviceStringBuilder = new StringBuilder();
+
+		deviceStringBuilder.append("Device Type: " + selectedDevice.toString() + "\r\n");
+		deviceStringBuilder.append("Device ID: " + selectedDevice.deviceID + "\r\n");
+		// append other data
+		deviceStringBuilder.append("Device State: " + (selectedDevice.isDeviceState() ? "on" : "off") + "\r\n");
+		switch (selectedDevice.getClass().getSimpleName()) {
+		case "SmokeDetector":
+			deviceStringBuilder.append("Smoke Level: " + ((SmokeDetector) selectedDevice).getSmokeLevel() + "\r\n");
+			break;
+		case "TemperatureSensor":
+			deviceStringBuilder.append(
+					"Temperature Level: " + ((TemperatureSensor) selectedDevice).getTemperatureLevel() + "\r\n");
+			break;
+		case "CarbonMonoxideDetector":
+			deviceStringBuilder.append("CO Level: " + ((CarbonMonoxideDetector) selectedDevice).getCMLevel() + "\r\n");
+			break;
+		case "WaterLeakSensor":
+			deviceStringBuilder
+					.append("Water Leak Detected: " + ((WaterLeakSensor) selectedDevice).getDectectionState() + "\r\n");
+
+		}
+		return deviceStringBuilder.toString();
+	}
+
+	public void updateComponentLists(JList componentList, JList keypadComponentList) {
+		JList devicesJList = new JList(baseStation.getSyncedDevices().toArray());
+		ListModel devicesModel = devicesJList.getModel();
+		componentList.setModel(devicesModel);
+		keypadComponentList.setModel(devicesModel);
 	}
 
 	public void showRecording(SecurityCamera cam) {
